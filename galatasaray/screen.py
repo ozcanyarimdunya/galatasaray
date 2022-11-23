@@ -3,7 +3,6 @@ from time import sleep
 
 from rich import box
 from rich.align import Align
-from rich.console import Console
 from rich.console import Group
 from rich.layout import Layout
 from rich.live import Live
@@ -160,5 +159,3 @@ class Application:
         table.add_row("quit", ": ", "CTRL + C")
         table.add_row("credit", ": ", Text("@ozcanyarimdunya", style="link https://yarimdunya.com"))
         return Panel(table, box=box.SIMPLE)
-
-

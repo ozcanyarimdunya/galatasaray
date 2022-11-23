@@ -14,4 +14,4 @@ $ pip install galatasaray
 $ galatasaray
 ```
 
-![galatasaray](./assets/1.png)
+![galatasaray](screenshot.png)
