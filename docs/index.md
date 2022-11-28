@@ -1,6 +1,6 @@
 # Galatasaray
 
-Everything about the Galatasaray from cli!
+Everything about the Galatasaray from CLI!
 
 ## Installation
 
