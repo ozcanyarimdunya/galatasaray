@@ -1,1 +1,13 @@
 site_name: Galatasaray
+repo_url: https://github.com/ozcanyarimdunya/galatasaray
+theme:
+  name: material
+  palette:
+    primary: red
+    accent: yellow
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ozcanyarimdunya
+    - icon: fontawesome/brands/github
+      link: https://github.com/ozcanyarimdunya
