@@ -33,6 +33,7 @@ rich = "^12.6.0"
 beautifulsoup4 = "^4.11.1"
 
 [tool.poetry.dev-dependencies]
+mkdocs = "^1.4.2"
 
 [tool.poetry.scripts]
 galatasaray = "galatasaray.cli:main"

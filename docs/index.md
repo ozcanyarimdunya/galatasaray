@@ -14,4 +14,4 @@ $ pip install galatasaray
 $ galatasaray
 ```
 
-![galatasaray](./docs/img/screenshot.png)
+![](./img/screenshot.png)
