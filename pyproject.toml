@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "galatasaray"
-version = "0.1.4"
+version = "0.1.5"
 description = "Everything about the Galatasaray from cli!"
 authors = ["Ozcan Yarimdunya <ozcanyd@gmail.com>"]
 license = "MIT"
@@ -33,8 +33,7 @@ rich = "^12.6.0"
 beautifulsoup4 = "^4.11.1"
 
 [tool.poetry.dev-dependencies]
-mkdocs = "^1.4.2"
-mkdocs-material = "^8.5.10"
+portray = "^1.7.0"
 
 [tool.poetry.scripts]
 galatasaray = "galatasaray.cli:main"
@@ -47,3 +46,16 @@ galatasaray = "galatasaray.cli:main"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.portray.mkdocs]
+site_name = "Galatasaray"
+
+[tool.portray.mkdocs.theme]
+name = "material"
+palette = { primary = "red", accent = "yellow" }
+
+[tool.portray.mkdocs.extra]
+social = [
+    { icon = "fontawesome/brands/twitter", link = "https://twitter.com/ozcanyarimdunya" },
+    { icon = "fontawesome/brands/github", link = "https://github.com/ozcanyarimdunya" },
+]
