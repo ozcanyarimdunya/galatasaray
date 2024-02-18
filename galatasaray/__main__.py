@@ -6,7 +6,7 @@ python -m galatasaray
 ```
 """
 
-from .cli import main
+from galatasaray.cli import main
 
 if __name__ == '__main__':
     main()

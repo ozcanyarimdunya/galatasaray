@@ -10,10 +10,14 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from .scrapper import Scraper
+from galatasaray.scrapper import Scraper
 
 
 class Application:
+    """
+    Main application class
+    """
+
     def __init__(self):
         self.scrapper = Scraper()
         self.layout = Layout(name="root")
@@ -33,7 +37,6 @@ class Application:
             Layout(name="main-right", ratio=1)
         )
 
-    def setup(self):
         self.layout["header-left"].update(self.get_header_left())
         self.layout["header-middle"].update(self.get_header_middle())
         self.layout["header-right"].update(self.get_header_right())

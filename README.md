@@ -4,14 +4,18 @@ Everything about the Galatasaray from cli!
 
 ## Installation
 
+Open your terminal and run:
+
 ```shell
-$ pip install galatasaray
+pip install galatasaray
 ```
 
 ## Usage
 
+Open your terminal and run:
+
 ```shell
-$ galatasaray
+galatasaray
 ```
 
 ![galatasaray](./docs/img/screenshot.png)

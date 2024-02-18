@@ -1,29 +1,51 @@
+from datetime import date
+
 import requests
 from bs4 import BeautifulSoup
 
 
 class Scraper:
+    BASE_URL = "https://www.transfermarkt.com.tr"
+    TEAM_ID = 141
+
     def __init__(self):
-        self.session = requests.Session()
-        self.session.headers.update(
+        self.session = self._initialize_session()
+        self.soup = self._get_initial_soup()
+
+    @staticmethod
+    def _initialize_session():
+        session = requests.Session()
+        session.headers.update(
             {
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) "
-                              "Chrome/39.0.2171.95 Safari/537.36 "
+                "User-Agent": (
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)"
+                    " AppleWebKit/537.36 (KHTML, like Gecko)"
+                    " Chrome/53.0.2785.143 Safari/537.36"
+                ),
+                "Accept-Encoding": "gzip, deflate",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "DNT": "1",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1"
             }
         )
+        return session
 
-        response = self.session.get(
-            url="https://www.transfermarkt.com.tr/galatasaray-istanbul/startseite/verein/141/saison_id/2022"
-        )
-        self.soup = BeautifulSoup(response.content, "html.parser")
+    def _get_initial_soup(self):
+        year = date.today().year - 1
+        url = "{}/galatasaray-istanbul/startseite/verein/{}/saison_id/{}".format(self.BASE_URL, self.TEAM_ID, year)
+        response = self.session.get(url)
+        return BeautifulSoup(response.content, "html.parser")
 
     @property
     def matches(self):
-        return self.session.get("https://www.transfermarkt.com.tr/ceapi/nextMatches/team/141").json()
+        url = "{}/ceapi/nextMatches/team/{}".format(self.BASE_URL, self.TEAM_ID)
+        return self.session.get(url).json()
 
     @property
     def rumors(self):
-        return self.session.get("https://www.transfermarkt.com.tr/ceapi/rumors/team/141").json()["rumors"]
+        url = "{}/ceapi/rumors/team/{}".format(self.BASE_URL, self.TEAM_ID)
+        return self.session.get(url).json()["rumors"]
 
     @property
     def team_value(self):
@@ -33,15 +55,10 @@ class Scraper:
 
     @property
     def cups(self):
-        cups = []
-        for each in self.soup.select(".data-header__badge-container a"):
-            cups.append(
-                [
-                    each.select_one("span").get_text(strip=True),
-                    each.get("title"),
-                ]
-            )
-        return cups
+        return [
+            [each.select_one("span").get_text(strip=True), each.get("title")]
+            for each in self.soup.select(".data-header__badge-container a")
+        ]
 
     @property
     def standings(self):
