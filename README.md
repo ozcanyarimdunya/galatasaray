@@ -2,7 +2,7 @@
 
 Everything about the Galatasaray from cli!
 
-## Installation
+## Installation & Usage on Local
 
 Open your terminal and run:
 
@@ -10,12 +10,16 @@ Open your terminal and run:
 pip install galatasaray
 ```
 
-## Usage
+```shell
+galatasaray
+```
+
+## Install & Usage with Docker
 
 Open your terminal and run:
 
 ```shell
-galatasaray
+docker run -ti ozcanyarimdunya/galatasaray
 ```
 
 ![galatasaray](./docs/img/screenshot.png)
