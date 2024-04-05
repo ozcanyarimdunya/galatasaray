@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "galatasaray"
-version = "0.1.7"
+version = "0.1.8"
 description = "Everything about the Galatasaray from cli!"
 authors = ["Ozcan Yarimdunya <ozcanyd@gmail.com>"]
 license = "MIT"
@@ -33,7 +33,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
-rich = "^13.7.0"
+rich = "^13.7.1"
 beautifulsoup4 = "^4.12.3"
 
 [tool.poetry.group.dev.dependencies]

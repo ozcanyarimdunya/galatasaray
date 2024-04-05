@@ -1,4 +1,5 @@
 from datetime import datetime
+from importlib import metadata
 from time import sleep
 
 from rich import box
@@ -14,11 +15,10 @@ from galatasaray.scrapper import Scraper
 
 
 class Application:
-    """
-    Main application class
-    """
-
     def __init__(self):
+        """
+        Initialize the application
+        """
         self.scrapper = Scraper()
         self.layout = Layout(name="root")
         self.layout.split(
@@ -155,10 +155,16 @@ class Application:
 
     @staticmethod
     def get_footer():
-        table = Table.grid()
+        table = Table.grid(expand=True)
         table.add_column()
-        table.add_column()
-        table.add_column()
-        table.add_row("quit", ": ", "CTRL + C")
-        table.add_row("credit", ": ", Text("@ozcanyarimdunya", style="link https://yarimdunya.com"))
+        table.add_row(
+            Align.center(
+                Text("ozcanyarimdunya", style="link https://yarimdunya.com") + " @ {}".format(datetime.today().year)
+            )
+        )
+        table.add_row(
+            Align.center(
+                "v{}".format(metadata.version("galatasaray"))
+            )
+        )
         return Panel(table, box=box.SIMPLE)

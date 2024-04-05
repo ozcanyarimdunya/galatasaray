@@ -7,7 +7,7 @@ Everything about the Galatasaray from cli!
 Open your terminal and run:
 
 ```shell
-pip install galatasaray
+pip install --upgrade galatasaray
 ```
 
 ```shell

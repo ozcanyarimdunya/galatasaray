@@ -1,5 +1,3 @@
-from datetime import date
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,11 +7,22 @@ class Scraper:
     TEAM_ID = 141
 
     def __init__(self):
+        """
+        Create a new Scraper instance.
+
+        base_url (str): The base URL of the website to scrape.
+        team_id (int): The ID of the team to scrape.
+        """
         self.session = self._initialize_session()
         self.soup = self._get_initial_soup()
 
     @staticmethod
     def _initialize_session():
+        """
+        Create a new requests Session object.
+
+        :returns: A new requests Session object.
+        """
         session = requests.Session()
         session.headers.update(
             {
@@ -32,29 +41,53 @@ class Scraper:
         return session
 
     def _get_initial_soup(self):
-        year = date.today().year - 1
-        url = "{}/galatasaray-istanbul/startseite/verein/{}/saison_id/{}".format(self.BASE_URL, self.TEAM_ID, year)
+        """
+        Get the initial soup for the team.
+
+        :returns: A BeautifulSoup object representing the initial soup for the team.
+        """
+        url = "{}/galatasaray-istanbul/startseite/verein/{}/saison_id".format(self.BASE_URL, self.TEAM_ID)
         response = self.session.get(url)
         return BeautifulSoup(response.content, "html.parser")
 
     @property
     def matches(self):
+        """
+        Get the next matches for the team.
+
+        :returns: A list of dictionaries representing the next matches for the team.
+        """
         url = "{}/ceapi/nextMatches/team/{}".format(self.BASE_URL, self.TEAM_ID)
         return self.session.get(url).json()
 
     @property
     def rumors(self):
+        """
+        Get the rumors for the team.
+
+        :returns: A list of dictionaries representing the rumors for the team.
+        """
         url = "{}/ceapi/rumors/team/{}".format(self.BASE_URL, self.TEAM_ID)
         return self.session.get(url).json()["rumors"]
 
     @property
     def team_value(self):
+        """
+        Get the team value.
+
+        :returns: A string representing the team value.
+        """
         data = self.soup.select_one("a.data-header__market-value-wrapper")
         data.select_one("p").clear()
         return data.get_text(strip=True)
 
     @property
     def cups(self):
+        """
+        Get the cups won by the team.
+
+        :returns: A list of strings representing the cups won by the team.
+        """
         return [
             [each.select_one("span").get_text(strip=True), each.get("title")]
             for each in self.soup.select(".data-header__badge-container a")
@@ -62,6 +95,11 @@ class Scraper:
 
     @property
     def standings(self):
+        """
+        Get the current standings of the team.
+
+        :returns: A list of lists representing the current standings of the team.
+        """
         standings = []
         table = self.soup.find("div", attrs={"data-viewport": "Tabelle"})
         for each in table.select("tbody tr"):
@@ -80,6 +118,11 @@ class Scraper:
 
     @property
     def truths(self):
+        """
+        Get the truths about the team.
+
+        :returns: A dictionary representing the truths about the team.
+        """
         table = self.soup.find("div", attrs={"data-viewport": "Daten_und_Fakten"})
         truths = {
             "legal_name": table.find("span", attrs={"itemprop": "legalName"}).get_text(strip=True),
